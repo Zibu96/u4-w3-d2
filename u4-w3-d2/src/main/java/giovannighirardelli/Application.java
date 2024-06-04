@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestioneeventi");
@@ -34,6 +35,29 @@ public class Application {
 //        } catch (NotFoundException ex) {
 //            System.out.println(ex.getMessage());
 //        }
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Come si chiama il tuo evento?");
+        String elem1 = scanner.nextLine();
+        System.out.println("Che giorno ci sarà? (dd)");
+        int int1 = Integer.parseInt(scanner.nextLine());
+        System.out.println("E in che mese? (mm)");
+        int int2 = Integer.parseInt(scanner.nextLine());
+        System.out.println("E invece l'anno? (yyyy)");
+        int int3 = Integer.parseInt(scanner.nextLine());
+        System.out.println("Descrivi un po' il tuo evento");
+        String elem2 = scanner.nextLine();
+        System.out.println("L'evento sarà pubblico o privato?");
+        TipoEvento tipoEvento = TipoEvento.valueOf(scanner.nextLine());
+        System.out.println("Quanta gente vorresti che venisse?");
+        int numPep = Integer.parseInt(scanner.nextLine());
+
+        Evento creaEv = new Evento(elem1, LocalDate.of(int3, int2, int1), elem2, tipoEvento, numPep);
+
+        ed.save(creaEv);
+
+        scanner.close();
 
 
         em.close();
